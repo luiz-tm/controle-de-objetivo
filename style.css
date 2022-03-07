@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --black: rgb(31, 29, 29);
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background-color: rgb(226, 226, 226);
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    color: var(--black);
+}
+
+.container {
+    width: 30vw;
+    margin: auto;
+    text-align: center;
+    padding: 30px;
+}
+
+main > div > h1 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+}
+
+.objetivo-saldo {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.objetivo-atual, .saldo-atual {
+    text-align: left;
+}
+
+.objetivo-atual > p, .saldo-atual > p {
+    color: #19d351;
+    font-weight: 600;
+    font-size: 3rem;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.712);
+}
+
+.saldo-atual > p {
+    color: #2e75cc;
+}
+
+.progress {
+    text-align: left;
+    margin-top: 30px;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.progress-bar {
+    margin-top: 15px;
+    background-color:white;
+    height: 25px;
+    position: relative;
+    border: 1px solid var(--black);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.progress-bar > .div-bar {
+    position: absolute;
+    height: 100%;
+    background-color: #0fd439;
+    animation: progress-animation 5s infinite;
+}
+
+@keyframes progress-animation{
+    0% { width: 0%; }
+    100% { width: 100%}
+}
+
+.progress-percent {
+    font-weight: 500;
+    font-size: 3rem;
+    margin-top: 15px;
+    color: var(--black);
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.712);
+    text-align: right;
+    margin-right: 40px;
+}
+
+.transactions-addt > h3 {
+    text-align: left;
+    margin-top: 15px;
+}
+
+.separate-bar {
+    height: 0.5px;
+    background-color: rgba(0, 0, 0, 0.671);
+    width: 100%;
+    border-radius: 3px;
+    margin-top: 5px;
+}
+
+.transactions-list {
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    padding: 7px;
+    border-right: 10px solid #b83333;
+}
+
+.transactions-list-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2rem;
+}
+
+.transactions-list-item  > button{
+    padding: 2px 7px;
+    background-color: #b83333;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.transactions-list-item  > button:hover {
+    background-color: #9e2020;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-value-positive {
+    color: #0fd439;
+    font-weight: bold;
+}
+
+.item-value-negative {
+    color: #b83333;
+    font-weight: bold;
+}
+
+.add-transaction > p {
+    margin-top: 10px;
+    text-align: left;
+    font-weight: 500;
+}
+
+.add-transaction > input {
+    margin-top: 10px;
+    border: 1px solid black;
+    width: 100%;
+    padding: 15px;
+    outline: none;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+.add-transaction > input::placeholder {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.add-button {
+    padding: 10px 50px;
+    background-color: var(--black);
+    color: white;
+    font-weight: 600;
+    margin-top: 20px;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    border-radius: 3px;
+}
+
+@media (max-width: 1300px)
+{
+    .container {
+        width: 44vw;
+    }
+    .objetivo-saldo {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .objetivo-atual, .saldo-atual {
+        text-align: center;
+    }
+}
+
+@media (max-width: 930px)
+{
+    .container { 
+        width: 61vw;
+    }
+}
+
+@media (max-width: 630px)
+{
+    .container { 
+        width: 91vw;
+    }
+}
