@@ -30,7 +30,7 @@ const updateApp = () => {
     
     objetivoAtual.innerHTML = `R$ ${valueObjetivo}`
     saldoAtual.innerHTML = `R$ ${valueSaldo}`
-    porcentagemObjetivo.innerHTML = `${porcentagemObjetivo.value}%`
+    porcentagemObjetivo.innerHTML = `${porcentagemObjetivo.value.toFixed(2)}%`
 
     if(porcentagemObjetivo.value >= 0)
     {
