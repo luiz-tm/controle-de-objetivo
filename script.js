@@ -20,6 +20,7 @@ const updateSaldo = () => {
 }
 
 const updateApp = () => {
+
     objetivoInput.value = localStorage.getItem('objetivo')
     saldoAtual.value = localStorage.getItem('saldo')
 
@@ -27,9 +28,15 @@ const updateApp = () => {
     var valueSaldo = Number(saldoAtual.value).toFixed(2)
 
     porcentagemObjetivo.value = (valueSaldo * 100) / valueObjetivo
+
+    if(isNaN(porcentagemObjetivo.value))
+    {
+        porcentagemObjetivo.value = 0
+    }
     
     objetivoAtual.innerHTML = `R$ ${valueObjetivo}`
     saldoAtual.innerHTML = `R$ ${valueSaldo}`
+    
     porcentagemObjetivo.innerHTML = `${porcentagemObjetivo.value.toFixed(2)}%`
 
     if(porcentagemObjetivo.value >= 0)
@@ -48,6 +55,7 @@ const updateApp = () => {
         progressBar.style.width = `0%`
     }
 }
+
 
 updateApp()
 
