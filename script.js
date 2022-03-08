@@ -13,7 +13,7 @@ const updateObjective = () => {
 }
 
 const updateSaldo = () => {
-    valueSaldo = Number(saldoAtual.value) + Number(saldoInput.value)
+    valueSaldo = (Number(saldoAtual.value) + Number(saldoInput.value.replace(',','.')))
     localStorage.setItem('saldo', valueSaldo);
     saldoInput.value = ``
     updateApp()
