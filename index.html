@@ -24,6 +24,10 @@
                     <h2>Saldo Atual</h2>
                     <p id="saldo-atual-js">R$ 0.00</p>
                 </div>
+                <div class="restante">
+                    <h2>Valor Restante</h2>
+                    <p id="restante-js">R$ 0.00</p>
+                </div>
             </div>
 
             <div class="progress-container">
@@ -38,6 +42,11 @@
                 <p>Objetivo atual</p>
                 <input id="input-objective" type="number" placeholder="Digite um valor">
                 <button id="button-update" onclick="updateObjective()">Atualizar</button>
+                <button id="button-update" onclick="resetInfo()">Zerar Informações</button>
+            </div>
+
+            <div class="last-update">
+                <p id="last-update">Última atualização: <strong>11/03/2022</strong> - <strong>19:24</strong></p>
             </div>
 
             <div class="transactions-addt">
