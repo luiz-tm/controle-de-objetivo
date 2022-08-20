@@ -26,7 +26,7 @@ const setBalance = (value) => balance = Number(value);
 const setRemain = (value) => remain = Number(value);
 
 const setProgress = (value) => progress = value;
-const setProgressBar = (value) => progressBar.style.width = value < 100 ? `${value}%` : '100%';
+const setProgressBar = (value) => progressBar.style.width = value > 0 ? (value < 100 ? `${value}%` : '100%') : ('0%');
 
 const getTarget = () => Number(target);
 const getBalance = () => Number(balance);
@@ -54,7 +54,6 @@ const loadValues = () =>
     if(getRemain() == null) { setRemain(0); }
 
     setProgress(getTarget() != 0 ? ((getBalance()/getTarget())*100) : 0)
-    setProgressBar(getProgress())
 }
 
 // Update functions
@@ -66,8 +65,9 @@ const updateDOM = () =>
     targetHTML.innerHTML = `R$ ${formatNumber(getTarget())}`
     balanceHTML.innerHTML = `R$ ${formatNumber(getBalance())}`
     remainHTML.innerHTML = (getTarget()-getBalance()) >= 0 ? `R$ ${formatNumber(getRemain())}` : `Ultrapassado`
-
     progressHTML.innerHTML = `${formatProgress(getProgress())}%`
+
+    setProgressBar(getProgress())
 }
 
 const updateApp = () => 
