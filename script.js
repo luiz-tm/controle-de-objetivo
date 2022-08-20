@@ -3,7 +3,6 @@
     Access      github.com/luiz-tm      for more contents.
 */
 
-
 // Document Object Model
 let targetHTML = document.querySelector('#objetivo-atual-js')
 let balanceHTML = document.querySelector('#saldo-atual-js')
@@ -22,25 +21,33 @@ let target = 0, balance = 0, remain = 0, progress = 0;
 //
 
 // GET and SET methods
-const setTarget = (value) => target = value;
-const setBalance = (value) => balance = value;
-const setRemain = (value) => remain = value;
+const setTarget = (value) => target = Number(value);
+const setBalance = (value) => balance = Number(value);
+const setRemain = (value) => remain = Number(value);
 
 const setProgress = (value) => progress = value;
 const setProgressBar = (value) => progressBar.style.width = value < 100 ? `${value}%` : '100%';
 
-const getTarget = () => target;
-const getBalance = () => balance;
-const getRemain = () => remain;
+const getTarget = () => Number(target);
+const getBalance = () => Number(balance);
+const getRemain = () => Number(remain);
 
 const getProgress = () => progress;
+//
+
+// UTILS
+const fixNumber = (number) => number < 10 && number > 0 ? `0${number}` : number;
+
+const formatNumber = (number) => fixNumber(fixNumber(Number(number).toFixed(2)).replace('.',','))
+
+const formatProgress = (number) => Math.floor(number)
 //
 
 const loadValues = () =>
 {
     setTarget(localStorage.getItem('target'))
     setBalance(localStorage.getItem('balance'))
-    setRemain(Number(target)-Number(balance))
+    setRemain(getTarget()-getBalance())
 
     if(getTarget() == null) { setTarget(0); }
     if(getBalance() == null) { setBalance(0); }
@@ -50,20 +57,24 @@ const loadValues = () =>
     setProgressBar(getProgress())
 }
 
-const fixNumber = (number) => number < 10 && number > 0 ? `0${number}` : number;
+// Update functions
+const updateTarget = (value) => localStorage.setItem('target', value);
+const updateBalance = (value) => localStorage.setItem('balance', getBalance()+Number(value))
+
+const updateDOM = () =>
+{
+    targetHTML.innerHTML = `R$ ${formatNumber(getTarget())}`
+    balanceHTML.innerHTML = `R$ ${formatNumber(getBalance())}`
+    remainHTML.innerHTML = (getTarget()-getBalance()) >= 0 ? `R$ ${formatNumber(getRemain())}` : `Ultrapassado`
+
+    progressHTML.innerHTML = `${formatProgress(getProgress())}%`
+}
 
 const updateApp = () => 
 {
     loadValues()
-
-    targetHTML.innerHTML = `R$ ${fixNumber(Number(getTarget()).toFixed(2)).replace('.',',')}`
-    balanceHTML.innerHTML = `R$ ${fixNumber(Number(getBalance()).toFixed(2)).replace('.',',')}`
-    remainHTML.innerHTML = (getTarget()-getBalance()) >= 0 ? `R$ ${fixNumber(Number(getRemain()).toFixed(2)).replace('.',',')}` : `Ultrapassado`
-    progressHTML.innerHTML = `${Math.floor(getProgress())}%`
+    updateDOM();
 }
-
-const updateTarget = (value) => localStorage.setItem('target', value);
-const updateBalance = (value) => localStorage.setItem('balance', Number(getBalance())+Number(value))
 
 const clearApp = () =>
 {
@@ -71,7 +82,9 @@ const clearApp = () =>
     localStorage.setItem('balance', 0)
     updateApp()
 }
+//
 
+// Application function
 const App = () => 
 {
     updateApp();
@@ -98,13 +111,11 @@ const App = () =>
         
         if(!Number(balanceInput.value))
             return alert('You must type a number.')
-
-            if(Number(balanceInput.value) < 0)
-            return alert('The number must be greater than 0.')
         
         updateBalance(balanceInput.value)
         updateApp()
     })
 }
+//
 
 App();

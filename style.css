@@ -175,10 +175,6 @@ main > div > h1 {
     cursor: pointer;
 }
 
-.last-update > p {
-    margin-top: 15px;
-}
-
 @media (max-width: 1300px)
 {
     .container {
