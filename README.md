@@ -24,5 +24,3 @@ Foram utilizadas unidades responsivas nos paddings e font-size: rem, acompanhand
 - Roger Melo (YouTube)
 - W3C
 - StackOverFlow
-
-;
