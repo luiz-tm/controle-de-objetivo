@@ -4,16 +4,16 @@
 */
 
 // Document Object Model
-let targetHTML = document.querySelector('#objetivo-atual-js')
-let balanceHTML = document.querySelector('#saldo-atual-js')
-let remainHTML = document.querySelector('#restante-js')
-let targetInput = document.querySelector('#input-objective')
-let updateButton = document.querySelector('#button-update')
-let clearButton = document.querySelector('.button-clear')
-let balanceInput = document.querySelector('#input-saldo')
-let addButton = document.querySelector('.add-button')
-let progressHTML = document.querySelector('.progress-percent')
-let progressBar = document.querySelector('#div-bar')
+const targetHTML = document.querySelector('#objetivo-atual-js')
+const balanceHTML = document.querySelector('#saldo-atual-js')
+const remainHTML = document.querySelector('#restante-js')
+const targetInput = document.querySelector('#input-objective')
+const updateButton = document.querySelector('#button-update')
+const clearButton = document.querySelector('.button-clear')
+const balanceInput = document.querySelector('#input-saldo')
+const addButton = document.querySelector('.add-button')
+const progressHTML = document.querySelector('.progress-percent')
+const progressBar = document.querySelector('#div-bar')
 //
 
 // Application variables
@@ -31,15 +31,19 @@ const setProgressBar = (value) => progressBar.style.width = value > 0 ? (value <
 const getTarget = () => Number(target);
 const getBalance = () => Number(balance);
 const getRemain = () => Number(remain);
-
 const getProgress = () => progress;
 //
 
-// UTILS
+const checkInvalidAmount = () =>
+{
+    if(getTarget() == null) { setTarget(0); }
+    if(getBalance() == null) { setBalance(0); }
+    if(getRemain() == null) { setRemain(0); }
+}
+
+// UTIL
 const fixNumber = (number) => number < 10 && number > 0 ? `0${number}` : number;
-
-const formatNumber = (number) => fixNumber(fixNumber(Number(number).toFixed(2)).replace('.',','))
-
+const formatNumber = (number) => fixNumber(Number(number).toFixed(2)).replace('.',',')
 const formatProgress = (number) => Math.floor(number)
 //
 
@@ -48,15 +52,12 @@ const loadValues = () =>
     setTarget(localStorage.getItem('target'))
     setBalance(localStorage.getItem('balance'))
     setRemain(getTarget()-getBalance())
-
-    if(getTarget() == null) { setTarget(0); }
-    if(getBalance() == null) { setBalance(0); }
-    if(getRemain() == null) { setRemain(0); }
+    checkInvalidAmount();
 
     setProgress(getTarget() != 0 ? ((getBalance()/getTarget())*100) : 0)
 }
 
-// Update functions
+// Update
 const updateTarget = (value) => localStorage.setItem('target', value);
 const updateBalance = (value) => localStorage.setItem('balance', getBalance()+Number(value))
 
