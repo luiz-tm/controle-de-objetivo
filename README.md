@@ -1,7 +1,5 @@
 # controle-de-objetivo
 
-![Representação da Página](resultado-final.png)
-
 # Introdução
 Seu objetivo é juntar dinheiro? Quer saber qual o seu progresso até ele? Essa é uma excelente aplicação para salvar seu progresso e saber o quão perto está de seu objetivo.
 
@@ -24,3 +22,7 @@ Foram utilizadas unidades responsivas nos paddings e font-size: rem, acompanhand
 - Roger Melo (YouTube)
 - W3C
 - StackOverFlow
+- Otávio Miranda
+
+### Imagem do projeto
+![Representação da Página](resultado-final.png)
