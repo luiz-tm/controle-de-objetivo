@@ -1,98 +1,110 @@
-var objetivoAtual = document.getElementById('objetivo-atual-js')
-var saldoAtual = document.getElementById('saldo-atual-js')
-var objetivoInput = document.getElementById('input-objective')
-var saldoInput = document.getElementById('input-saldo')
-var porcentagemObjetivo = document.getElementById('progress-percent')
-var progressBar = document.getElementById('div-bar')
-var lastUpdate = document.getElementById('last-update')
-var restante = document.getElementById('restante-js')
-
-var Storage = localStorage;
-
-/* window.alert(`${dia}/${mes}/${ano} - ${hora}:${minuto}:${segundo}`) */
+/* 
+    Application created by Luiz Henrique.
+    Access      github.com/luiz-tm      for more contents.
+*/
 
 
-const updateObjective = () => {
-    updateDate()
-    localStorage.setItem('objetivo', objetivoInput.value);
+// Document Object Model
+let targetHTML = document.querySelector('#objetivo-atual-js')
+let balanceHTML = document.querySelector('#saldo-atual-js')
+let remainHTML = document.querySelector('#restante-js')
+let targetInput = document.querySelector('#input-objective')
+let updateButton = document.querySelector('#button-update')
+let clearButton = document.querySelector('.button-clear')
+let balanceInput = document.querySelector('#input-saldo')
+let addButton = document.querySelector('.add-button')
+let progressHTML = document.querySelector('.progress-percent')
+let progressBar = document.querySelector('#div-bar')
+//
+
+// Application variables
+let target = 0, balance = 0, remain = 0, progress = 0;
+//
+
+// GET and SET methods
+const setTarget = (value) => target = value;
+const setBalance = (value) => balance = value;
+const setRemain = (value) => remain = value;
+
+const setProgress = (value) => progress = value;
+const setProgressBar = (value) => progressBar.style.width = value < 100 ? `${value}%` : '100%';
+
+const getTarget = () => target;
+const getBalance = () => balance;
+const getRemain = () => remain;
+
+const getProgress = () => progress;
+//
+
+const loadValues = () =>
+{
+    setTarget(localStorage.getItem('target'))
+    setBalance(localStorage.getItem('balance'))
+    setRemain(Number(target)-Number(balance))
+
+    if(getTarget() == null) { setTarget(0); }
+    if(getBalance() == null) { setBalance(0); }
+    if(getRemain() == null) { setRemain(0); }
+
+    setProgress(getTarget() != 0 ? ((getBalance()/getTarget())*100) : 0)
+    setProgressBar(getProgress())
+}
+
+const fixNumber = (number) => number < 10 && number > 0 ? `0${number}` : number;
+
+const updateApp = () => 
+{
+    loadValues()
+
+    targetHTML.innerHTML = `R$ ${fixNumber(Number(getTarget()).toFixed(2)).replace('.',',')}`
+    balanceHTML.innerHTML = `R$ ${fixNumber(Number(getBalance()).toFixed(2)).replace('.',',')}`
+    remainHTML.innerHTML = (getTarget()-getBalance()) >= 0 ? `R$ ${fixNumber(Number(getRemain()).toFixed(2)).replace('.',',')}` : `Ultrapassado`
+    progressHTML.innerHTML = `${Math.floor(getProgress())}%`
+}
+
+const updateTarget = (value) => localStorage.setItem('target', value);
+const updateBalance = (value) => localStorage.setItem('balance', Number(getBalance())+Number(value))
+
+const clearApp = () =>
+{
+    localStorage.setItem('target', 0)
+    localStorage.setItem('balance', 0)
     updateApp()
 }
 
-const updateSaldo = () => {
-    updateDate()
-    valueSaldo = (Number(saldoAtual.value) + Number(saldoInput.value.replace(',','.')))
-    localStorage.setItem('saldo', valueSaldo);
-    saldoInput.value = ``
-    updateApp()
+const App = () => 
+{
+    updateApp();
+
+    clearButton.addEventListener('click', () => clearApp())
+
+    updateButton.addEventListener('click', () => {
+        if(!targetInput.value.length)
+            return alert('You must type a number first.')
+        
+        if(!Number(targetInput.value))
+            return alert('You must type a number.')
+        
+        if(Number(targetInput.value) < 0)
+            return alert('The number must be greater than 0.')
+        
+        updateTarget(targetInput.value);
+        updateApp()
+    })
+
+    addButton.addEventListener('click', () => {
+        if(!balanceInput.value.length)
+            return alert('You must type a number first.')
+        
+        if(!Number(balanceInput.value))
+            return alert('You must type a number.')
+
+            if(Number(balanceInput.value) < 0)
+            return alert('The number must be greater than 0.')
+        
+        updateBalance(balanceInput.value)
+        updateApp()
+    })
 }
 
-const updateDate = () => {
-    var data = new Date()
-    var dia = data.getDate()
-    var mes = data.getMonth()+1
-    var ano = data.getFullYear()
-    var hora = data.getHours()
-    var minuto = data.getMinutes()
-    var segundo = data.getSeconds()
-    localStorage.setItem('gettime', `${dia}/${mes}/${ano} - ${hora}:${minuto}:${segundo}`)
-}
-
-const resetInfo = () => {
-    localStorage.setItem('saldo', 0)
-    localStorage.setItem('objetivo', 0)
-    updateApp()
-}
-
-const updateApp = () => {
-
-    objetivoInput.value = localStorage.getItem('objetivo')
-    saldoAtual.value = localStorage.getItem('saldo')
-
-    var valueObjetivo = Number(objetivoInput.value).toFixed(2)
-    var valueSaldo = Number(saldoAtual.value).toFixed(2)
-    var valueRestante = Number(valueObjetivo-valueSaldo).toFixed(2)
-
-    porcentagemObjetivo.value = (valueSaldo * 100) / valueObjetivo
-
-    if(isNaN(porcentagemObjetivo.value))
-    {
-        porcentagemObjetivo.value = 0
-    }
-    
-    objetivoAtual.innerHTML = `R$ ${valueObjetivo}`
-    saldoAtual.innerHTML = `R$ ${valueSaldo}`
-
-    if(valueObjetivo-valueSaldo >= 0) { restante.innerHTML = `R$ ${valueRestante}`} else 
-    { restante.innerHTML = `Ultrapassado`}
-
-    
-    porcentagemObjetivo.innerHTML = `${porcentagemObjetivo.value.toFixed(2)}%`
-
-    lastUpdate.innerHTML = `Última atualização: <strong>${localStorage.getItem('gettime')}</strong>`
-
-    if(localStorage.getItem('gettime') == null)
-    {
-        lastUpdate.innerHTML = `Última atualização: <strong>Nunca</strong>`
-    }
-
-    if(porcentagemObjetivo.value >= 0)
-    {
-        if(porcentagemObjetivo.value <= 100)
-        {
-            progressBar.style.width = `${porcentagemObjetivo.value}%`
-        }
-        else
-        {
-            progressBar.style.width = `100%`
-        }
-    }
-    else
-    {
-        progressBar.style.width = `0%`
-    }
-}
-
-
-updateApp()
-
-
+App();
