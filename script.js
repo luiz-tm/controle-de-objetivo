@@ -1,6 +1,6 @@
 /* 
     Application created by Luiz Henrique.
-    Access      github.com/luiz-tm      for more contents.
+    Access      github.com/luiz-tm      for more content.
 */
 
 // Document Object Model
@@ -64,7 +64,7 @@ const updateDOM = () =>
 {
     targetHTML.innerHTML = `R$ ${formatNumber(getTarget())}`
     balanceHTML.innerHTML = `R$ ${formatNumber(getBalance())}`
-    remainHTML.innerHTML = (getTarget()-getBalance()) >= 0 ? `R$ ${formatNumber(getRemain())}` : `Ultrapassado`
+    remainHTML.innerHTML = (getTarget()-getBalance()) >= 0 ? `R$ ${formatNumber(getRemain())}` : `Reached`
     progressHTML.innerHTML = `${formatProgress(getProgress())}%`
 
     setProgressBar(getProgress())
