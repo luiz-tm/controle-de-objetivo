@@ -1,7 +1,7 @@
 # controle-de-objetivo
 
 # Rode o projeto
-https://luiz-tm.github.io/controle-de-objetivo/
+<a href="https://luiz-tm.github.io/controle-de-objetivo/" target="_blank" rel="external">Clique aqui para rodar o projeto.</a>
 
 # Introdução
 Seu objetivo é juntar dinheiro? Quer saber qual o seu progresso até ele? Essa é uma excelente aplicação para salvar seu progresso e saber o quão perto está de seu objetivo.
