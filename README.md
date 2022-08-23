@@ -26,6 +26,3 @@ Foram utilizadas unidades responsivas nos paddings e font-size: rem, acompanhand
 - W3C
 - StackOverFlow
 - Otávio Miranda
-
-### Imagem do projeto
-![Representação da Página](resultado-final.png)
